@@ -49,7 +49,7 @@ function App() {
     }
   ])
   return (
-    <div className="flex min-h-screen dark:bg-darkerBlue dark:text-white bg-lightGray text-slate-800 flex-col gap-8">
+    <div className="flex min-h-screen dark:bg-darkerBlue dark:text-white bg-lightGray text-slate-800 flex-col">
       <RouterProvider router={router} />
     </div>
   )

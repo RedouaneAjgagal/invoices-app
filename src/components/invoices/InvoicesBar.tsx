@@ -16,7 +16,7 @@ const InvoicesBar = () => {
                     <InvoicesFilter />
                 </div>
                 <div>
-                    <button className='flex items-center gap-2 bg-primaryPurple p-2 rounded-full font-medium'><span className='rounded-full bg-white p-1'><FiPlus className='text-primaryPurple text-lg' /></span> New</button>
+                    <button className='flex items-center gap-2 bg-primaryPurple p-2 rounded-full font-medium text-white'><span className='rounded-full bg-white p-1'><FiPlus className='text-primaryPurple text-lg' /></span> New</button>
                 </div>
             </div>
         </nav>
