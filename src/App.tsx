@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 import Root from './pages/Root';
 import Home from './pages/Home';
 import Invoices from './pages/Invoices';
@@ -16,7 +16,8 @@ function App() {
       children: [
         {
           index: true,
-          element: <Home />
+          element: <Home />,
+          loader: () => redirect('/invoices')
         },
         {
           path: 'invoices',

@@ -1,9 +1,10 @@
 import React from 'react'
+import InvoicesContainer from '../components/invoices'
 
 const Invoices = () => {
     return (
-        <div>
-            <h1>invoices</h1>
+        <div className='px-4'>
+            <InvoicesContainer />
         </div>
     )
 }
