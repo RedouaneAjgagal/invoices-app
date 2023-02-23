@@ -3,7 +3,7 @@ import InvoicesContainer from '../components/invoices'
 
 const Invoices = () => {
     return (
-        <div className='px-4'>
+        <div>
             <InvoicesContainer />
         </div>
     )

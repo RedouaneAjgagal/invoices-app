@@ -1,9 +1,10 @@
 import React from 'react'
+import InvoiceInfo from '../components/invoiceDetail'
 
 const InvoiceDetail = () => {
   return (
     <div>
-        <h1>detail</h1>
+        <InvoiceInfo />
     </div>
   )
 }

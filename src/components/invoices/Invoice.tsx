@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { GoPrimitiveDot } from 'react-icons/go'
+import Status from '../../Helpers/Status'
 
 interface InvoiceData {
     id: string,
@@ -21,17 +21,6 @@ const Invoice: React.FC<InvoiceData> = (props) => {
     }).format(props.amount)
     const amount = `$${formatedAmount}`
     const status = props.status
-    let bgColor = 'bg-orange-600/10';
-    let statusColor = 'text-orange-400';
-
-    if (props.status === 'Paid') {
-        bgColor = 'bg-emerald-600/10';
-        statusColor = 'text-emerald-400';
-    }
-    if (props.status === 'Draft') {
-        bgColor = 'bg-slate-600/10';
-        statusColor = 'text-slate-400'
-    }
 
 
         return (
@@ -46,9 +35,7 @@ const Invoice: React.FC<InvoiceData> = (props) => {
                             <p className='dark:text-darkTextGray text-lightTextGray'>{date}</p>
                             <span className='font-medium text-2xl'>{amount}</span>
                         </div>
-                        <div className={`flex justify-center h-10 w-full max-w-[7rem] rounded ${bgColor}`}>
-                            <span className={`font-medium tracking-wide flex items-center gap-1 ${statusColor}`}><GoPrimitiveDot className='-mb-[.1rem]' />{status}</span>
-                        </div>
+                        <Status status={status} />
                     </div>
                 </Link>
             </li>
