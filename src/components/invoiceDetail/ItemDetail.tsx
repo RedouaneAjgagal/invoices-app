@@ -2,7 +2,7 @@ import React from 'react'
 import Status from '../../Helpers/Status'
 import Amount from './Amount'
 import Info from './Info'
-import CallToAction from './CallToAction'
+import CallToAction from '../../Helpers/CallToAction'
 
 const ItemDetail = () => {
     return (
@@ -12,7 +12,7 @@ const ItemDetail = () => {
                     <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>Status</p>
                     <Status status='Paid' />
                 </div>
-                <CallToAction />
+                <CallToAction buttons={['edite', 'delete']} />
             </div>
             <article className='p-4 dark:bg-darkBlue bg-white rounded flex flex-col gap-8'>
                 <Info />

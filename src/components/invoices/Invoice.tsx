@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Status from '../../Helpers/Status'
-
+import { formatPriceHanlder } from '../../utils/formatPrices'
 interface InvoiceData {
     id: string,
     clientName: string,
@@ -15,11 +15,7 @@ const Invoice: React.FC<InvoiceData> = (props) => {
     const id = props.id;
     const clientName = props.clientName;
     const date = `Due ${props.date}`;
-    const formatedAmount = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(props.amount)
-    const amount = `$${formatedAmount}`
+    const amount = formatPriceHanlder(props.amount)
     const status = props.status
 
 
