@@ -23,7 +23,7 @@ const ItemListInput: React.FC<Props> = (props) => {
                 </div>
                 <div className='flex flex-col justify-between col-span-2'>
                     <span>Total</span>
-                    <div className='flex justify-between items-center mb-4 dark:text-darkTextGray'>
+                    <div className='flex justify-between items-center mb-4 dark:text-darkTextGray text-lightTextGray'>
                         <p className='font-medium'>$0.00</p>
                         <button onClick={removeItemHandler} type='button' className='hover:text-red-500 duration-200 ease-in-out'><FaTrash /></button>
                     </div>

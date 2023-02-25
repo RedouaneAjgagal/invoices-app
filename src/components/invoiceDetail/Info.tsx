@@ -4,7 +4,7 @@ const Info = () => {
     return (
         <div className='flex flex-col gap-6'>
             <div>
-                <span className='font-medium text-primaryPurple'>#<span className='text-white'>RT3080</span></span>
+                <span className='font-medium text-primaryPurple'>#<span className='dark:text-white text-black'>RT3080</span></span>
                 <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>Re-branding</p>
             </div>
             <div>

@@ -12,11 +12,11 @@ const Status: React.FC<Props> = (props) => {
 
     if (props.status === 'Paid') {
         bgColor = 'bg-emerald-600/10';
-        statusColor = 'text-emerald-400';
+        statusColor = 'dark:text-emerald-400 text-emerald-500';
     }
     if (props.status === 'Draft') {
         bgColor = 'bg-slate-600/10';
-        statusColor = 'text-slate-400'
+        statusColor = 'dark:text-slate-400 text-gray-600'
     }
 
     return (

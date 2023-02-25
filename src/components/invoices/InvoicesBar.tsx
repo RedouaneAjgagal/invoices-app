@@ -18,7 +18,7 @@ const InvoicesBar = () => {
         <nav className='flex justify-between items-center'>
             <div>
                 <h1 className='font-bold text-2xl'>Invoices</h1>
-                <p className='dark:text-darkTextGray text-[.95rem]'>7 invoices</p>
+                <p className='dark:text-darkTextGray text-lightTextGray text-[.95rem]'>7 invoices</p>
             </div>
             <div className='flex gap-4 items-center'>
                 <div className='relative'>

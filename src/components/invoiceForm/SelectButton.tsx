@@ -10,7 +10,7 @@ const SelectButton: React.FC<Props> = (props) => {
         props.onSelect(props.title);
     }
     return (
-        <button onClick={selectHandler} type='button' className='w-full text-left p-3 hover:text-primaryPurple duration-200 ease-in-out'>{props.title}</button>
+        <button onClick={selectHandler} type='button' className='w-full text-left p-3 hover:text-primaryPurple duration-200 ease-in-out dark:text-darkTextGray text-darkBlue'>{props.title}</button>
     )
 }
 

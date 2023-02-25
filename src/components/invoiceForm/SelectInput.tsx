@@ -17,19 +17,19 @@ const SelectInput = () => {
 
     return (
         <div className='relative'>
-            <button onClick={openTermsHandler} type='button' className='w-full dark:bg-darkBlue border border-slate-800 bg-white p-3 rounded font-medium flex items-center justify-between hover:border-primaryPurple duration-300 ease-linear'>
+            <button onClick={openTermsHandler} type='button' className='w-full dark:bg-darkBlue border dark:border-slate-800 bg-white p-3 rounded font-medium flex items-center justify-between hover:border-primaryPurple duration-300 ease-linear'>
                 <span>{isTerm.title}</span>
                 <span><RiArrowDownSLine className='text-primaryPurple -mb-[.15rem] text-xl' /></span>
             </button>
             {isTerm.open ?
-                <ul className='absolute z-30 top-14 w-full dark:bg-[#252945] rounded-lg font-medium text-darkTextGray shadow-xl drop-shadow-xl'>
-                    <li className='border-b border-slate-900/50'>
+                <ul className='absolute z-30 top-14 w-full dark:bg-[#252945] bg-white rounded-lg font-medium text-darkTextGray shadow-xl drop-shadow-xl'>
+                    <li className='border-b dark:border-slate-900/50'>
                         <SelectButton title='Net 1 Day' onSelect={selectHanlder} />
                     </li>
-                    <li className='border-b border-slate-900/50'>
+                    <li className='border-b dark:border-slate-900/50'>
                         <SelectButton title='Net 7 Days' onSelect={selectHanlder} />
                     </li>
-                    <li className='border-b border-slate-900/50'>
+                    <li className='border-b dark:border-slate-900/50'>
                         <SelectButton title='Net 14 Days' onSelect={selectHanlder} />
                     </li>
                     <li>

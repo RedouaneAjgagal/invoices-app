@@ -3,6 +3,12 @@ import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
 const Root = () => {
+  if (!localStorage.darkMode) {
+    localStorage.setItem('darkMode', 'true');
+  }
+  if (localStorage.darkMode === 'false') {
+    document.documentElement.classList.remove('dark')
+  }
   return (
     <>
       <Navbar />

@@ -14,11 +14,11 @@ const Item: React.FC<Props> = (props) => {
     return (
         <div className='px-4 h-24 flex justify-between items-center font-medium'>
             <div>
-                <h1>{props.itemName}</h1>
-                <p className='dark:text-darkTextGray flex items-center gap-3'>{props.quantity} x <span>{price}</span></p>
+                <h1 className='dark:text-white text-black'>{props.itemName}</h1>
+                <p className='dark:text-darkTextGray text-lightTextGray flex items-center gap-3'>{props.quantity} x <span>{price}</span></p>
             </div>
             <div>
-                <span>{itemTotal}</span>
+                <span className='dark:text-white text-black'>{itemTotal}</span>
             </div>
         </div>
     )

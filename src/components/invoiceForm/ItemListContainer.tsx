@@ -18,7 +18,7 @@ const ItemListContainer = () => {
             <h2 className='text-2xl dark:text-lightTextGray font-medium'>Item List</h2>
             <div className='flex flex-col gap-12'>
                 {itemList}
-                <button type='button' onClick={addNewItemHanlder} className='font-medium dark:bg-[#252945] bg-lightDarkBlue py-3 rounded-full flex items-center justify-center gap-1 hover:dark:bg-white hover:dark:text-primaryPurple duration-300 ease-in-out shadow-lg'><FiPlus className='-mb-[.15rem] text-lg' />Add New Item</button>
+                <button type='button' onClick={addNewItemHanlder} className='font-medium dark:bg-[#252945] bg-indigo-100 dark:text-darkTextGray text-slate-600 hover:bg-indigo-600 hover:text-indigo-100 py-3 rounded-full flex items-center justify-center gap-1 hover:dark:bg-white hover:dark:text-primaryPurple duration-300 ease-in-out'><FiPlus className='-mb-[.15rem] text-lg' />Add New Item</button>
             </div>
         </div>
     )

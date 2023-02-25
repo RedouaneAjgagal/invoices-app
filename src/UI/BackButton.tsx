@@ -7,7 +7,7 @@ const BackButton = () => {
     navigate('..')
   }
   return (
-    <button onClick={getBackHandler} className='flex items-center font-medium hover:text-slate-300 ease-in-out duration-300'><RiArrowDropLeftLine className='w-8 h-8 text-primaryPurple' />Go back</button>
+    <button onClick={getBackHandler} className='flex items-center font-medium hover:dark:text-slate-300 hover:text-slate-500 ease-in-out duration-300'><RiArrowDropLeftLine className='w-8 h-8 text-primaryPurple' />Go back</button>
   )
 }
 
