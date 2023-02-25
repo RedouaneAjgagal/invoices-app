@@ -2,7 +2,15 @@ import React from 'react'
 import Input from './Input'
 import { FaTrash } from 'react-icons/fa'
 
-const ItemListInput = () => {
+interface Props {
+    id: string,
+    removeItem: (id: string) => void
+}
+
+const ItemListInput: React.FC<Props> = (props) => {
+    const removeItemHandler = () => {
+        props.removeItem(props.id)
+    }
     return (
         <div className='flex flex-col gap-4'>
             <Input id={crypto.randomUUID()} label='Item Name' type='text' />
@@ -17,7 +25,7 @@ const ItemListInput = () => {
                     <span>Total</span>
                     <div className='flex justify-between items-center mb-4 dark:text-darkTextGray'>
                         <p className='font-medium'>$0.00</p>
-                        <button type='button' className='hover:text-red-500 duration-200 ease-in-out'><FaTrash /></button>
+                        <button onClick={removeItemHandler} type='button' className='hover:text-red-500 duration-200 ease-in-out'><FaTrash /></button>
                     </div>
                 </div>
             </div>

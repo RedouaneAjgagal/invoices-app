@@ -4,8 +4,10 @@ import Form from './Form'
 const InvoiceForm = () => {
   return (
     <div className='flex flex-col gap-6'>
+      <nav>
         <BackButton />
-        <Form />
+      </nav>
+      <Form />
     </div>
   )
 }
