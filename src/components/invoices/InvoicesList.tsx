@@ -1,11 +1,14 @@
 import React from 'react'
 import Invoice from './Invoice'
+import data from '../../data/data.json';
 const InvoicesList = () => {
+    const invoices = data;
+
     return (
         <ul className='flex flex-col gap-3'>
-            <Invoice id='RT3080' clientName='Jensen Huang' date='19 Aug 2021' amount={1800.9} status='Pending' />
-            <Invoice id='XM9141' clientName='Alex Grim' date='20 Sep 2021' amount={556} status='Paid' />
-            <Invoice id='RG0314' clientName='John Marrison' date='1 Oct 2021' amount={14002.33} status='Draft' />
+            {invoices.map(invoice =>
+                <Invoice key={invoice.id} id={invoice.id} clientName={invoice.clientName} date={invoice.createdAt} amount={invoice.total} status={invoice.status as "pending" | "paid" | "draft"} />
+            )}
         </ul>
     )
 }

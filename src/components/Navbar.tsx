@@ -10,7 +10,7 @@ const Navbar = () => {
     const darkMode = JSON.parse(getDarkMode);
     const [isDarkMode, setIsDarkMode] = useState<boolean>(darkMode);
     const darkModeHandler = () => {
-        if (localStorage.darkMode === 'true') {
+        if (isDarkMode) {
             document.documentElement.classList.remove('dark')
             localStorage.darkMode = false
         } else {

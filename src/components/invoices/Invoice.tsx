@@ -7,7 +7,7 @@ interface InvoiceData {
     clientName: string,
     date: string,
     amount: number,
-    status: 'Paid' | 'Pending' | 'Draft'
+    status: 'paid' | 'pending' | 'draft'
 }
 
 
@@ -23,7 +23,7 @@ const Invoice: React.FC<InvoiceData> = (props) => {
             <li className='dark:bg-darkBlue bg-white rounded-lg shadow-xl'>
                 <Link to={id} className='flex flex-col gap-2 p-4 border border-transparent hover:border-primaryPurple rounded-lg  duration-300 ease-in-out'>
                     <div className='flex justify-between items-center'>
-                        <span className='font-medium text-primaryPurple'>#<span className='dark:text-white text-black'>{id}</span></span>
+                        <span className='font-medium dark:text-primaryPurple text-indigo-600'>#<span className='dark:text-white text-black'>{id}</span></span>
                         <p className='dark:text-darkTextGray text-lightTextGray'>{clientName}</p>
                     </div>
                     <div className='flex justify-between items-center'>
