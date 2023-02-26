@@ -1,44 +1,67 @@
 import React from 'react'
 
-const Info = () => {
+interface Props {
+    invoiceInfo: {
+        id: string;
+        description: string;
+        senderAddress: {
+            street: string;
+            city: string;
+            postCode: string;
+            country: string;
+        };
+        billTo: {
+            name: string;
+            street: string;
+            city: string;
+            postCode: string;
+            country: string;
+        };
+        invoiceDate: string;
+        paymentDue: string;
+        sentTo: string;
+    }
+}
+
+const Info: React.FC<Props> = ({ invoiceInfo }) => {
     return (
         <div className='flex flex-col gap-6'>
             <div>
-                <span className='font-medium text-primaryPurple'>#<span className='dark:text-white text-black'>RT3080</span></span>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>Re-branding</p>
+                <span className='font-medium text-primaryPurple'>#<span className='dark:text-white text-black'>{invoiceInfo.id}</span></span>
+                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.description}</p>
             </div>
             <div>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>19 Union 19 Union Terrace</p>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>London</p>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>E1 3EZ</p>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>United Kingdom</p>
+                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.street}</p>
+                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.city}</p>
+                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.postCode}</p>
+                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.country}</p>
             </div>
             <div className='flex flex-col gap-6'>
                 <div className='flex justify-between'>
                     <div className='flex flex-col justify-between'>
                         <div>
                             <p className='dark:text-darkTextGray text-lightTextGray'>Invoice Date</p>
-                            <h2 className='font-medium text-xl'>18 Aug 2021</h2>
+                            <h2 className='font-medium text-xl'>{invoiceInfo.invoiceDate}</h2>
                         </div>
                         <div>
                             <p className='dark:text-darkTextGray text-lightTextGray'>Payment Due</p>
-                            <h2 className='font-medium text-xl'>19 Aug 2021</h2>
+                            <h2 className='font-medium text-xl'>{invoiceInfo.paymentDue}</h2>
                         </div>
                     </div>
                     <div>
                         <div className='mb-2'>
                             <p className='dark:text-darkTextGray text-lightTextGray'>Bill To</p>
-                            <h2 className='font-medium text-xl'>Jensen Huang</h2>
+                            <h2 className='font-medium text-xl'>{invoiceInfo.billTo.name}</h2>
                         </div>
-                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>106 Kendell Street</p>
-                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>Sharrington</p>
-                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>NR24 5WQ</p>
-                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>United Kingdom</p>
+                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.billTo.street}</p>
+                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.billTo.city}</p>
+                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.billTo.postCode}</p>
+                        <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.billTo.country}</p>
                     </div>
                 </div>
                 <div>
                     <p className='dark:text-darkTextGray text-lightTextGray'>Sent to</p>
-                    <h2 className='font-medium text-xl'>jensenh@mail.com</h2>
+                    <h2 className='font-medium text-xl'>{invoiceInfo.sentTo}</h2>
                 </div>
             </div>
         </div>

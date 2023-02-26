@@ -10,3 +10,7 @@ const InvoiceDetail = () => {
 }
 
 export default InvoiceDetail
+
+// export const loader = async () => {
+
+// }
