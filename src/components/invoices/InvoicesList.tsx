@@ -1,13 +1,21 @@
 import React from 'react'
 import Invoice from './Invoice'
-import data from '../../data/data.json';
-const InvoicesList = () => {
-    const invoices = data;
 
+interface Props {
+    list: {
+        id: string,
+        clientName: string,
+        date: string,
+        amount: number,
+        status: 'paid' | 'pending' | 'draft'
+    }[]
+}
+const InvoicesList: React.FC<Props> = ({ list }) => {
+    
     return (
         <ul className='flex flex-col gap-3'>
-            {invoices.map(invoice =>
-                <Invoice key={invoice.id} id={invoice.id} clientName={invoice.clientName} date={invoice.createdAt} amount={invoice.total} status={invoice.status as "pending" | "paid" | "draft"} />
+            {list.map(invoice =>
+                <Invoice key={invoice.id} id={invoice.id} clientName={invoice.clientName} date={invoice.date} amount={invoice.amount} status={invoice.status} />
             )}
         </ul>
     )

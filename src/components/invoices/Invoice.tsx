@@ -10,7 +10,6 @@ interface InvoiceData {
     status: 'paid' | 'pending' | 'draft'
 }
 
-
 const Invoice: React.FC<InvoiceData> = (props) => {
     const id = props.id;
     const clientName = props.clientName;
