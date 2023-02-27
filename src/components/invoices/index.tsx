@@ -7,8 +7,6 @@ import data from '../../data/data.json'
 const InvoicesContainer = () => {
     const { isPaid, isPending, isDraft } = useContext(FilterStatus);
     const activeFilters = [isPaid ? 'paid' : null, isPending ? 'pending' : null, isDraft ? 'draft' : null].filter(Boolean)
-    // console.log(activeFilters);
-
 
     const invoices = data.map(invoice => {
         return {

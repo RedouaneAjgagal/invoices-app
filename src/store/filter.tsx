@@ -4,17 +4,13 @@ export type Filter = {
     isPaid: boolean,
     isPending: boolean,
     isDraft: boolean,
-    paidToggle: () => void,
-    pendingToggle: () => void,
-    draftToggle: () => void
+    filterInvoice: (type: 'paid' | 'pending' | 'draft' | 'reset') => void,
 }
 const FilterStatus = createContext<Filter>({
     isPaid: false,
     isPending: false,
     isDraft: false,
-    paidToggle: () => {},
-    pendingToggle: () => {},
-    draftToggle: () => {}
+    filterInvoice: (type) => { },
 });
 
 export default FilterStatus;

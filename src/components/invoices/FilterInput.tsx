@@ -6,15 +6,9 @@ interface Props {
 }
 
 const FilterInput: React.FC<Props> = ({ name }) => {
-    const { paidToggle, draftToggle, pendingToggle } = useContext(FilterStatus);
+    const { filterInvoice } = useContext(FilterStatus);
     const filterStatusHanlder = () => {
-        if (name === 'paid') {
-            paidToggle();
-        } else if (name === 'pending') {
-            pendingToggle();
-        } else {
-            draftToggle();
-        }
+        filterInvoice(name)
     }
     return (
         <label htmlFor={name} className='flex gap-2 cursor-pointer font-medium'>

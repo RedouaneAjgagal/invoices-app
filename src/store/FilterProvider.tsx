@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 import { Filter } from "./filter";
 
 type State = { isPaid: boolean, isPending: boolean, isDraft: boolean }
-type Action = { type: 'paid' } | { type: 'pending' } | { type: 'draft' }
+type Action = { type: 'paid' } | { type: 'pending' } | { type: 'draft' } | { type: 'reset' }
 
 const initialState: State = {
     isPaid: false,
@@ -18,6 +18,9 @@ const reducer = (state: State, action: Action) => {
             return { ...state, isPending: !state.isPending }
         case 'draft':
             return { ...state, isDraft: !state.isDraft }
+        case 'reset': {
+            return initialState
+        }
         default:
             return state;
     }
@@ -29,22 +32,14 @@ interface Props {
 }
 const FilterProvider: React.FC<Props> = ({ children }) => {
     const [filters, dispatchFilters] = useReducer(reducer, initialState)
-    const paidToggle = () => {
-        dispatchFilters({ type: 'paid' });
-    };
-    const pendingToggle = () => {
-        dispatchFilters({ type: 'pending' })
-    };
-    const draftToggle = () => {
-        dispatchFilters({ type: 'draft' })
+    const filterInvoice = (type: 'paid' | 'pending' | 'draft' | 'reset') => {
+        dispatchFilters({ type: type });
     };
     const selectedFilter: Filter = {
         isPaid: filters.isPaid,
         isPending: filters.isPending,
         isDraft: filters.isDraft,
-        paidToggle,
-        pendingToggle,
-        draftToggle
+        filterInvoice,
     }
     return (
         <FilterStatus.Provider value={selectedFilter}>
