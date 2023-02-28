@@ -41,7 +41,7 @@ const ItemDetail: React.FC<Props> = ({ details }) => {
                     <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>Status</p>
                     <Status status={status} />
                 </div>
-                <CallToAction buttons={['edit', 'delete']} />
+                <CallToAction buttons={['edit', 'delete']} markPaid='Mark as Paid' />
             </div>
             <article className='p-4 dark:bg-darkBlue bg-white rounded flex flex-col gap-8 shadow-lg dark:shadow-black/20 shadow-slate-200/50'>
                 <Info invoiceInfo={invoiceInfo} />
