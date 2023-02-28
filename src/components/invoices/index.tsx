@@ -1,14 +1,15 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import FilterStatus from '../../store/filter'
 import InvoicesBar from './InvoicesBar'
 import InvoicesList from './InvoicesList'
-import data from '../../data/data.json'
+import { invoiceDetail } from '../invoiceDetail/ItemDetail'
 
 const InvoicesContainer = () => {
     const { isPaid, isPending, isDraft } = useContext(FilterStatus);
     const activeFilters = [isPaid ? 'paid' : null, isPending ? 'pending' : null, isDraft ? 'draft' : null].filter(Boolean)
-
-    const invoices = data.map(invoice => {
+    const invoicesData: invoiceDetail[] = JSON.parse(localStorage.invoices);
+    
+    const invoices = invoicesData.map(invoice => {
         return {
             id: invoice.id,
             clientName: invoice.clientName,

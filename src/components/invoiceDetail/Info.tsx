@@ -24,6 +24,12 @@ interface Props {
 }
 
 const Info: React.FC<Props> = ({ invoiceInfo }) => {
+    const formatedInvoiceDate = new Date(invoiceInfo.invoiceDate)
+    const invoiceDate = formatedInvoiceDate.toLocaleDateString('en-us', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const formatedPaymentDue = new Date(invoiceInfo.paymentDue)
+    const paymentDue = formatedPaymentDue.toLocaleDateString('en-us', { day: 'numeric', month: 'long', year: 'numeric' });
+    
     return (
         <div className='flex flex-col gap-6'>
             <div>
@@ -41,11 +47,11 @@ const Info: React.FC<Props> = ({ invoiceInfo }) => {
                     <div className='flex flex-col justify-between'>
                         <div>
                             <p className='dark:text-darkTextGray text-lightTextGray'>Invoice Date</p>
-                            <h2 className='font-medium text-xl'>{invoiceInfo.invoiceDate}</h2>
+                            <h2 className='font-medium text-xl'>{invoiceDate}</h2>
                         </div>
                         <div>
                             <p className='dark:text-darkTextGray text-lightTextGray'>Payment Due</p>
-                            <h2 className='font-medium text-xl'>{invoiceInfo.paymentDue}</h2>
+                            <h2 className='font-medium text-xl'>{paymentDue}</h2>
                         </div>
                     </div>
                     <div>

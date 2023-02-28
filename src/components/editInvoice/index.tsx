@@ -10,7 +10,7 @@ const EditContainer = () => {
             <nav>
                 <BackButton />
             </nav>
-            <Form buttons={['cancel', 'send']} editData={invoiceDetail} />
+            <Form buttons={['cancel', 'send']} editData={invoiceDetail} action={"patch"} />
         </div>
     )
 }

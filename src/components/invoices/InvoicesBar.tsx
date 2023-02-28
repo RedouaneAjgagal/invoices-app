@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { FiPlus } from 'react-icons/fi'
 import InvoicesFilter from './InvoicesFilter'

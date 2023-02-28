@@ -1,7 +1,7 @@
 import React from 'react'
 import { json, LoaderFunction } from 'react-router-dom'
 import EditContainer from '../components/editInvoice'
-import data from '../data/data.json'
+import { invoiceDetail } from '../components/invoiceDetail/ItemDetail'
 
 const EditInvoice = () => {
   return (
@@ -13,7 +13,8 @@ export default EditInvoice
 
 export const loader: LoaderFunction = ({ params }) => {
   const id = params.invoiceDetailId
-  const getInvoice = data.filter(invoice => {
+  const invoicesData: invoiceDetail[] = JSON.parse(localStorage.invoices);
+  const getInvoice = invoicesData.filter(invoice => {
     return invoice.id === id
   });
   if (getInvoice.length === 0) {

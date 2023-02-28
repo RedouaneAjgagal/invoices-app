@@ -1,4 +1,4 @@
-import React from 'react'
+import { redirect } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -7,3 +7,7 @@ const Home = () => {
 }
 
 export default Home
+
+export const loader = () => {
+  return redirect('/invoices');
+}

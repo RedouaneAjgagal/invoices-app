@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import Item from '../invoiceDetail/Item';
 import ItemListInput from './ItemListInput'
 
 interface Props {
@@ -34,7 +35,7 @@ const ItemListContainer: React.FC<Props> = (props) => {
                 setItemList(prev => [...prev, <ItemListInput key={id} id={id} removeItem={removeItem} values={item} />]);
             });
         }
-    }, [])
+    }, []);
     return (
         <div className='flex flex-col gap-6'>
             <h2 className='text-2xl dark:text-lightTextGray font-medium'>Item List</h2>
