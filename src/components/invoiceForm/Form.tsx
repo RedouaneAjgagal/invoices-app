@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form as FormRouter, redirect } from 'react-router-dom'
+import { ActionFunction, Form as FormRouter, redirect } from 'react-router-dom'
 import Input from './Input'
 import ItemListContainer from './ItemListContainer'
 import CallToAction from '../../Helpers/CallToAction'
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ buttons, editData }) => {
-    
+
     return (
         <>
             {editData?.id ?
@@ -19,7 +19,7 @@ const Form: React.FC<Props> = ({ buttons, editData }) => {
                 :
                 <h1 className='font-medium text-3xl'>New Invoice</h1>
             }
-            <FormRouter className='flex flex-col gap-8 pb-20'>
+            <FormRouter method='patch' className='flex flex-col gap-8 pb-20'>
                 <div className='flex flex-col gap-4'>
                     <h3 className='dark:text-purple-500 text-purple-600 font-medium tracking-wide'>Bill From</h3>
                     <Input id='from_street_address' label='Steet Address' type='text' defaultValue={editData?.senderAddress.street} />
@@ -32,7 +32,7 @@ const Form: React.FC<Props> = ({ buttons, editData }) => {
                 <div className='flex flex-col gap-4'>
                     <h3 className='dark:text-purple-500 text-purple-600 font-medium tracking-wide'>Bill To</h3>
                     <Input id='to_client_name' label="Client's Name" type='text' defaultValue={editData?.clientName} />
-                    <Input id='to_client_email' label="Client's Email" type='email' defaultValue={editData?.clientEmail}/>
+                    <Input id='to_client_email' label="Client's Email" type='email' defaultValue={editData?.clientEmail} />
                     <Input id='to_street_address' label='Steet Address' type='text' defaultValue={editData?.clientAddress.street} />
                     <div className='grid grid-cols-2 gap-6 justify-between items-center'>
                         <Input id='to_city' label='City' type='text' defaultValue={editData?.clientAddress.city} />
@@ -55,8 +55,10 @@ const Form: React.FC<Props> = ({ buttons, editData }) => {
 export default Form
 
 
-// export const action = () => {
-//     console.log('happned');
-    
-//     return redirect('/invoices')
-// } 
+export const action: ActionFunction = async ({ request }) => {
+    const getData = await request.formData();
+    const selected = getData.get('paymentTerms')
+    const adress = getData.get('from_street_address')
+    console.log(selected);
+    return redirect('..')
+} 

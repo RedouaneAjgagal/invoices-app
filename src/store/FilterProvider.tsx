@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 import { Filter } from "./filter";
 
 type State = { isPaid: boolean, isPending: boolean, isDraft: boolean }
-type Action = { type: 'paid' } | { type: 'pending' } | { type: 'draft' } | { type: 'reset' }
+type Action = { type: 'paid' | 'pending' | 'draft' | 'draft' | 'reset' }
 
 const initialState: State = {
     isPaid: false,

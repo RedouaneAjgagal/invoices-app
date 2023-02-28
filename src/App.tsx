@@ -6,7 +6,7 @@ import InvoiceDetail from './pages/InvoiceDetail';
 import NewInvoices from './pages/NewInvoices';
 import EditInvoice, {loader as getInvoiceDetail} from './pages/EditInvoice';
 import Error from './pages/Error';
-// import {action as submitFormAction} from './components/invoiceForm/Form';
+import {action as submitFormAction} from './components/invoiceForm/Form';
 
 function App() {
   const router = createBrowserRouter([
@@ -38,7 +38,7 @@ function App() {
                   path: 'edit',
                   element: <EditInvoice />,
                   loader: getInvoiceDetail,
-                  // action: submitFormAction
+                  action: submitFormAction
                 },
               ]
             },
