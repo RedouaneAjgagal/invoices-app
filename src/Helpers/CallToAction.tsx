@@ -39,11 +39,8 @@ const CallToAction: React.FC<Props> = (props) => {
         navigate('')
     }
     const deleteHandler = () => {
-        // const updatedInvoices = invoicesData.filter(invoice => invoice.id !== targetedInvoice.id)
-        // localStorage.invoices = JSON.stringify(updatedInvoices)
         const confirm = window.confirm(`Are you sure you want to delete invoice #${targetedInvoice.id}`)
         if (confirm) submit(null, { method: 'delete' })
-        // navigate('/')
     }
 
     return (

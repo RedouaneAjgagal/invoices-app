@@ -5,6 +5,9 @@ import ItemListContainer from './ItemListContainer'
 import CallToAction from '../../Helpers/CallToAction'
 import { invoiceDetail } from '../invoiceDetail/ItemDetail'
 import SelectContainer from './SelectContainer'
+import { generateId } from '../../utils/generateId'
+import { formData } from '../../utils/submitForm'
+import { submitForm } from '../../utils/submitForm'
 interface Props {
     buttons: ['cancel' | 'discard', 'send', 'draft'?];
     editData?: invoiceDetail,
@@ -58,74 +61,42 @@ export default Form
 
 export const action: ActionFunction = async ({ request, params }) => {
     const getData = await request.formData();
-    const data = {
-        fromStreetAdress: getData.get('from_street_address')!,
-        fromCity: getData.get('from_city')!,
-        fromPostCode: getData.get('from_post_code')!,
-        fromCountry: getData.get('from_country')!,
-        toClientName: getData.get('to_client_name')!,
-        toClientEmail: getData.get('to_client_email')!,
-        toStreetAddress: getData.get('to_street_address')!,
-        toCity: getData.get('to_city')!,
-        toPostCode: getData.get('to_post_code')!,
-        toCountry: getData.get('to_country')!,
-        invoiceDate: getData.get('invoice_date')!,
-        paymentTerm: +getData.get('payment_terms')!,
-        projectDescription: getData.get('project_description')!,
+    const data: formData = {
+        fromStreetAdress: getData.get('from_street_address') as string,
+        fromCity: getData.get('from_city')! as string,
+        fromPostCode: getData.get('from_post_code')! as string,
+        fromCountry: getData.get('from_country')! as string,
+        toClientName: getData.get('to_client_name')! as string,
+        toClientEmail: getData.get('to_client_email')! as string,
+        toStreetAddress: getData.get('to_street_address')! as string,
+        toCity: getData.get('to_city')! as string,
+        toPostCode: getData.get('to_post_code')! as string,
+        toCountry: getData.get('to_country')! as string,
+        invoiceDate: getData.get('invoice_date')! as string,
+        paymentTerm: +getData.get('payment_terms')! as number,
+        projectDescription: getData.get('project_description')! as string,
         itemList: {
-            itemNames: getData.getAll('itemName'),
-            itemQuantities: getData.getAll('itemQty'),
-            itemPrices: getData.getAll('itemPrice')
+            itemNames: getData.getAll('itemName') as string[],
+            itemQuantities: getData.getAll('itemQty') as string[],
+            itemPrices: getData.getAll('itemPrice') as string[]
         }
-
     }
+    const invoices: invoiceDetail[] = JSON.parse(localStorage.invoices);
     if (request.method === 'PATCH') {
-        const invoiceId = params.invoiceDetailId
-        const invoices: invoiceDetail[] = JSON.parse(localStorage.invoices);
-        const updatedInvoices = invoices.map(invoice => {
-
-            if (invoice.id === invoiceId) {
-                const updatedItems = data.itemList.itemNames.map((item, index) => {
-                    const name = data.itemList.itemNames[index]
-                    const price = Number(data.itemList.itemPrices[index])
-                    const quantity = Number(data.itemList.itemQuantities[index])
-                    const total = quantity * price
-                    return { name, price, quantity, total}
-                })
-                const updatedPy = data.paymentTerm
-                const total = updatedItems.reduce((initalState, item) => {
-                    return item.total + initalState
-                }, 0)
-                
-                const updatedPaymentDue = new Date(data.invoiceDate.toString());
-                updatedPaymentDue.setDate(updatedPaymentDue.getDate() + updatedPy);
-                return {
-                    ...invoice, senderAddress: {
-                        street: data.fromStreetAdress,
-                        city: data.fromCity,
-                        postCode: data.fromPostCode,
-                        country: data.fromCountry
-                    },
-                    clientName: data.toClientName,
-                    clientEmail: data.toClientEmail,
-                    clientAddress: {
-                        street: data.toStreetAddress,
-                        city: data.toCity,
-                        postCode: data.toPostCode,
-                        country: data.toCountry
-                    },
-                    createdAt: data.invoiceDate,
-                    paymentTerms: data.paymentTerm,
-                    description: data.projectDescription,
-                    paymentDue: updatedPaymentDue,
-                    items: updatedItems,
-                    total: total
-                }
-            } else {
-                return invoice
-            }
-        });
-        localStorage.invoices = JSON.stringify(updatedInvoices);
+        const invoiceId = params.invoiceDetailId!
+        const targetIndex = invoices.findIndex(invoice => invoice.id === invoiceId)
+        const updatedInvoice = submitForm(data, invoiceId);
+        invoices[targetIndex] =  updatedInvoice
+        localStorage.invoices = JSON.stringify(invoices);
+        return redirect('..')
     }
-    return redirect('..')
+
+    if (request.method === 'POST') {
+        const invoiceId = generateId()
+        const newInvoice = submitForm(data, invoiceId)
+        const updatInvoices = JSON.parse(localStorage.invoices).concat(newInvoice)
+        localStorage.invoices = JSON.stringify(updatInvoices)
+        return redirect(`/invoices/${invoiceId}`)
+    }
+    return null
 } 

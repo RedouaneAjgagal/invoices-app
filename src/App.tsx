@@ -49,7 +49,8 @@ function App() {
             },
             {
               path: 'new',
-              element: <NewInvoices />
+              element: <NewInvoices />,
+              action: submitFormAction
             },
           ]
         },

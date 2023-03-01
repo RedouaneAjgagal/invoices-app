@@ -4,7 +4,6 @@ import FilterStatus from '../store/filter'
 import data from '../data/data.json'
 import { LoaderFunction } from 'react-router-dom'
 const Invoices = () => {
-    console.log('invoices');
     const { filterInvoice } = useContext(FilterStatus)
     useEffect(() => {
         filterInvoice('reset');

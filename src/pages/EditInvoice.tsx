@@ -4,7 +4,6 @@ import EditContainer from '../components/editInvoice'
 import { invoiceDetail } from '../components/invoiceDetail/ItemDetail'
 
 const EditInvoice = () => {
-  console.log('edit');
   
   return (
     <EditContainer />
