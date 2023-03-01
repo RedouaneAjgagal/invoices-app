@@ -6,9 +6,11 @@ import CallToAction from '../../Helpers/CallToAction'
 import data from '../../data/data.json'
 export type invoiceDetail = typeof data[0]
 interface Props {
-    details: invoiceDetail
+    details: invoiceDetail,
 }
 const ItemDetail: React.FC<Props> = ({ details }) => {
+    
+    
     const status = details.status as 'paid' | 'pending' | 'draft';
     const invoiceInfo = {
         id: details.id,
@@ -33,6 +35,7 @@ const ItemDetail: React.FC<Props> = ({ details }) => {
     const itemsList = details.items.map(item => {
         return { ...item, id: crypto.randomUUID() }
     })
+
     return (
         
         <section className='flex flex-col gap-4 pb-20'>
@@ -41,7 +44,8 @@ const ItemDetail: React.FC<Props> = ({ details }) => {
                     <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>Status</p>
                     <Status status={status} />
                 </div>
-                <CallToAction buttons={['edit', 'delete']} markPaid='Mark as Paid' />
+                <CallToAction buttons={['edit', 'delete']} status={details.status as 'paid' | 'pending' | 'draft'} />
+
             </div>
             <article className='p-4 dark:bg-darkBlue bg-white rounded flex flex-col gap-8 shadow-lg dark:shadow-black/20 shadow-slate-200/50'>
                 <Info invoiceInfo={invoiceInfo} />

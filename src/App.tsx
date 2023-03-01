@@ -2,7 +2,8 @@ import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 import Root from './pages/Root';
 import Home, { loader as initialLoad} from './pages/Home';
 import Invoices, {loader as loadInvoices} from './pages/Invoices';
-import InvoiceDetail from './pages/InvoiceDetail';
+import InvoiceDetail, {action as deleteInoive, loader as targetInvoice} from './pages/InvoiceDetail';
+// import  {action as deleteInvoice} from './Helpers/CallToAction';
 import NewInvoices from './pages/NewInvoices';
 import EditInvoice, { loader as getInvoiceDetail } from './pages/EditInvoice';
 import Error from './pages/Error';
@@ -22,6 +23,7 @@ function App() {
         },
         {
           path: 'invoices',
+          // action: deleteInvoice,
           children: [
             {
               index: true,
@@ -33,7 +35,9 @@ function App() {
               children: [
                 {
                   index: true,
-                  element: <InvoiceDetail />
+                  element: <InvoiceDetail />,
+                  action: deleteInoive,
+                  loader: targetInvoice
                 },
                 {
                   path: 'edit',
