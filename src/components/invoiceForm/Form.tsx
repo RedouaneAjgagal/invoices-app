@@ -45,7 +45,7 @@ const Form: React.FC<Props> = ({ buttons, editData, action }) => {
                     <Input id='to_country' label='Country' type='text' defaultValue={editData?.clientAddress.country} />
                 </div>
                 <div className='flex flex-col gap-4'>
-                    <Input id='invoice_date' label='Invoice Date' type='date' defaultValue={editData?.createdAt} disable={action === "patch" ? true : false} />
+                    <Input id='invoice_date' label='Invoice Date' type='date' defaultValue={editData?.createdAt} action={action} />
                     <SelectContainer id='payment_terms' label='Payment Terms' defaultValue={editData?.paymentTerms} />
                     <Input id='project_description' label='Project Description' type='text' defaultValue={editData?.description} />
                 </div>
