@@ -13,9 +13,13 @@ interface Props {
 }
 
 const ItemListContainer: React.FC<Props> = (props) => {
+    
     const gettingData = useRef(false)
 
     const [itemList, setItemList] = useState<JSX.Element[]>([]);
+
+
+    
     const removeItem = (id: string) => {
         setItemList(prev => {
             return prev.filter(item => item.props.id !== id);
@@ -23,16 +27,17 @@ const ItemListContainer: React.FC<Props> = (props) => {
     }
     const addNewItemHanlder = () => {
         const id = crypto.randomUUID()
-        setItemList(prev => [...prev, <ItemListInput key={id} id={id} removeItem={removeItem} />])
+        setItemList((prev) => [...prev, <ItemListInput key={id} id={id} removeItem={removeItem} index={itemList.length} />])
     }
 
     useEffect(() => {
+        // to rednder Once
         if (props.items) {
             if (gettingData.current) return
             gettingData.current = true
-            props.items.map((item) => {
-                const id = crypto.randomUUID()
-                setItemList(prev => [...prev, <ItemListInput key={id} id={id} removeItem={removeItem} values={item} />]);
+            props.items.map((item, index) => {
+                const id = crypto.randomUUID();
+                setItemList(prev => [...prev, <ItemListInput key={id} id={id} removeItem={removeItem} values={item} index={index} /> ]);
             });
         }
     }, []);

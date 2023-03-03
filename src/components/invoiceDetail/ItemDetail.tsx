@@ -9,8 +9,8 @@ interface Props {
     details: invoiceDetail,
 }
 const ItemDetail: React.FC<Props> = ({ details }) => {
-    
-    
+
+
     const status = details.status as 'paid' | 'pending' | 'draft';
     const invoiceInfo = {
         id: details.id,
@@ -37,7 +37,7 @@ const ItemDetail: React.FC<Props> = ({ details }) => {
     })
 
     return (
-        
+
         <section className='flex flex-col gap-4 pb-20'>
             <div className='p-4 dark:bg-darkBlue bg-white rounded shadow-lg dark:shadow-black/20 shadow-slate-200/50'>
                 <div className='flex justify-between items-center'>
@@ -49,7 +49,11 @@ const ItemDetail: React.FC<Props> = ({ details }) => {
             </div>
             <article className='p-4 dark:bg-darkBlue bg-white rounded flex flex-col gap-8 shadow-lg dark:shadow-black/20 shadow-slate-200/50'>
                 <Info invoiceInfo={invoiceInfo} />
-                <Amount itemsList={itemsList} total={details.total} />
+                {itemsList.length ?
+                    <Amount itemsList={itemsList} total={details.total} />
+                    :
+                    null
+                }
             </article>
         </section>
     )
