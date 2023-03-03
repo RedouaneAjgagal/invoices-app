@@ -18,7 +18,7 @@ type itemsList = {
     itemQuantities: string[],
     itemPrices: string[]
 }
-export const submitForm = (data: formData, id: string, itemsList: itemsList) => {
+export const submitForm = (data: formData, id: string, itemsList: itemsList, action?: 'draft') => {
     const items = itemsList.itemNames.map((item, index) => {
         const name = itemsList.itemNames[index]
         const price = Number(itemsList.itemPrices[index])
@@ -31,6 +31,14 @@ export const submitForm = (data: formData, id: string, itemsList: itemsList) => 
     }, 0);
     const updatedPaymentDue = new Date(data.invoice_date.toString());
     updatedPaymentDue.setDate(updatedPaymentDue.getDate() + Number(data.payment_terms));
+    let status = 'pending'
+    let createdAt = data.invoice_date
+    if (action === 'draft') {
+        const date = new Date();
+        const currentDay = date.toISOString().split('T')[0]
+        status = 'draft'
+        createdAt = data.invoice_date || currentDay
+    }
     return {
         id: id,
         senderAddress: {
@@ -47,12 +55,12 @@ export const submitForm = (data: formData, id: string, itemsList: itemsList) => 
             postCode: data.to_post_code,
             country: data.to_country
         },
-        createdAt: data.invoice_date,
+        createdAt: createdAt,
         paymentTerms: +data.payment_terms,
         description: data.project_description,
         paymentDue: updatedPaymentDue.toString(),
         items: items,
-        status: 'pending',
+        status: status,
         total: total
     }
 }

@@ -15,13 +15,13 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ buttons, editData, action }) => {
-    const responseData = useActionData() as { formData: inputErrors, isError: boolean }
+    const responseData = useActionData() as { formData: inputErrors }
     const infoErrors = responseData?.formData
     const [isDiscard, setIsDiscard] = useState<boolean>(false)
     useEffect(() => {
         setIsDiscard(false)
     }, [infoErrors])
-    
+
     const discardHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         const form = e.currentTarget.form
         if (form) {
@@ -73,7 +73,10 @@ export default Form
 
 
 export const action: ActionFunction = async ({ request, params }) => {
+    // const whichOne = request.
     const getData = await request.formData();
+    
+    
     const data = {
         from_street_address: getData.get('from_street_address') as string,
         from_city: getData.get('from_city') as string,
@@ -111,6 +114,16 @@ export const action: ActionFunction = async ({ request, params }) => {
         itemPrices: getData.getAll('itemPrice') as string[]
     }
 
+    // Add a new Draft invoice
+    const draftBtn = getData.get('middleBtn')
+    if (draftBtn === 'Save as Draft' && request.method === 'POST') {
+        const invoiceId = generateId()
+        const newInvoice = submitForm(data, invoiceId, itemsList, 'draft')
+        const updatInvoices = JSON.parse(localStorage.invoices).concat(newInvoice)
+        localStorage.invoices = JSON.stringify(updatInvoices)
+        return redirect(`/invoices/${invoiceId}`)
+    }
+
     const itemsError = itemsList.itemNames.map((item, index) => {
         let errors = []
         const name = itemsList.itemNames[index]
@@ -131,10 +144,9 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 
     if (formDataErrors.length || checkErrors.length) {
-        return { formData: formDataErrors, itemsList: itemsError, isError: true }
+        return { formData: formDataErrors, itemsList: itemsError }
     }
-
-    return null
+    // edit an existing invoice
     if (request.method === 'PATCH') {
         const invoices: invoiceDetail[] = JSON.parse(localStorage.invoices);
         const invoiceId = params.invoiceDetailId!
