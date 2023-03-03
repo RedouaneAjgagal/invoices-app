@@ -25,8 +25,6 @@ const ItemListInput: React.FC<Props> = (props) => {
         }[]
     }
     const itemsError = actionData?.itemsList
-    console.log(itemsError);
-
     let newError = { itemName: false, itemQty: false, itemPrice: false }
     itemsError?.filter((item) => {
         if (item.index === props.index && item.emptyInputs.length) {
@@ -67,7 +65,6 @@ const ItemListInput: React.FC<Props> = (props) => {
 
     const calctotal = itemDetail.quantity * itemDetail.price
     const total = formatPriceHanlder(calctotal)
-
 
     return (
         <div className='flex flex-col gap-4'>

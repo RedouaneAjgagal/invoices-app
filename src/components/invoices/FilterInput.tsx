@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import FilterStatus from '../../store/filter'
-
 interface Props {
     name: 'paid' | 'pending' | 'draft'
 }
 
 const FilterInput: React.FC<Props> = ({ name }) => {
     const { filterInvoice, isDraft, isPaid, isPending } = useContext(FilterStatus);
+    
     const filterStatusHanlder = () => {
         filterInvoice(name)
     }

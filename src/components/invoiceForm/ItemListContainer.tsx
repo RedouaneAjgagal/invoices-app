@@ -9,17 +9,22 @@ interface Props {
         quantity: number;
         price: number;
         total: number;
-    }[]
+    }[],
+    discard: boolean
 }
 
 const ItemListContainer: React.FC<Props> = (props) => {
-    
+
     const gettingData = useRef(false)
 
     const [itemList, setItemList] = useState<JSX.Element[]>([]);
 
+    useEffect(() => {
+        if (props.discard === true) {
+            setItemList([])
+        }
+    }, [props.discard])
 
-    
     const removeItem = (id: string) => {
         setItemList(prev => {
             return prev.filter(item => item.props.id !== id);
@@ -37,7 +42,7 @@ const ItemListContainer: React.FC<Props> = (props) => {
             gettingData.current = true
             props.items.map((item, index) => {
                 const id = crypto.randomUUID();
-                setItemList(prev => [...prev, <ItemListInput key={id} id={id} removeItem={removeItem} values={item} index={index} /> ]);
+                setItemList(prev => [...prev, <ItemListInput key={id} id={id} removeItem={removeItem} values={item} index={index} />]);
             });
         }
     }, []);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { ActionFunction, Form as FormRouter, redirect, useActionData } from 'react-router-dom'
 import Input, { inputErrors } from './Input'
 import ItemListContainer from './ItemListContainer'
@@ -15,9 +15,20 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ buttons, editData, action }) => {
-    const responseData = useActionData() as { formData: inputErrors }
+    const responseData = useActionData() as { formData: inputErrors, isError: boolean }
     const infoErrors = responseData?.formData
-
+    const [isDiscard, setIsDiscard] = useState<boolean>(false)
+    useEffect(() => {
+        setIsDiscard(false)
+    }, [infoErrors])
+    
+    const discardHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const form = e.currentTarget.form
+        if (form) {
+            form.reset()
+        }
+        setIsDiscard(true)
+    }
     return (
         <>
             {editData?.id ?
@@ -28,31 +39,31 @@ const Form: React.FC<Props> = ({ buttons, editData, action }) => {
             <FormRouter method={action} className='flex flex-col gap-8 pb-20' noValidate>
                 <div className='flex flex-col gap-4'>
                     <h3 className='dark:text-purple-500 text-purple-600 font-medium tracking-wide'>Bill From</h3>
-                    <Input errors={infoErrors} id='from_street_address' label='Steet Address' type='text' defaultValue={editData?.senderAddress.street} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='from_street_address' label='Steet Address' type='text' defaultValue={editData?.senderAddress.street} />
                     <div className='grid grid-cols-2 gap-6 justify-between items-center'>
-                        <Input errors={infoErrors} id='from_city' label='City' type='text' defaultValue={editData?.senderAddress.city} />
-                        <Input errors={infoErrors} id='from_post_code' label='Post Code' type='text' defaultValue={editData?.senderAddress.postCode} />
+                        <Input errors={isDiscard ? [] : infoErrors} id='from_city' label='City' type='text' defaultValue={editData?.senderAddress.city} />
+                        <Input errors={isDiscard ? [] : infoErrors} id='from_post_code' label='Post Code' type='text' defaultValue={editData?.senderAddress.postCode} />
                     </div>
-                    <Input errors={infoErrors} id='from_country' label='Country' type='text' defaultValue={editData?.senderAddress.country} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='from_country' label='Country' type='text' defaultValue={editData?.senderAddress.country} />
                 </div>
                 <div className='flex flex-col gap-4'>
                     <h3 className='dark:text-purple-500 text-purple-600 font-medium tracking-wide'>Bill To</h3>
-                    <Input errors={infoErrors} id='to_client_name' label="Client's Name" type='text' defaultValue={editData?.clientName} />
-                    <Input errors={infoErrors} id='to_client_email' label="Client's Email" type='email' defaultValue={editData?.clientEmail} />
-                    <Input errors={infoErrors} id='to_street_address' label='Steet Address' type='text' defaultValue={editData?.clientAddress.street} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='to_client_name' label="Client's Name" type='text' defaultValue={editData?.clientName} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='to_client_email' label="Client's Email" type='email' defaultValue={editData?.clientEmail} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='to_street_address' label='Steet Address' type='text' defaultValue={editData?.clientAddress.street} />
                     <div className='grid grid-cols-2 gap-6 justify-between items-center'>
-                        <Input errors={infoErrors} id='to_city' label='City' type='text' defaultValue={editData?.clientAddress.city} />
-                        <Input errors={infoErrors} id='to_post_code' label='Post Code' type='text' defaultValue={editData?.clientAddress.postCode} />
+                        <Input errors={isDiscard ? [] : infoErrors} id='to_city' label='City' type='text' defaultValue={editData?.clientAddress.city} />
+                        <Input errors={isDiscard ? [] : infoErrors} id='to_post_code' label='Post Code' type='text' defaultValue={editData?.clientAddress.postCode} />
                     </div>
-                    <Input errors={infoErrors} id='to_country' label='Country' type='text' defaultValue={editData?.clientAddress.country} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='to_country' label='Country' type='text' defaultValue={editData?.clientAddress.country} />
                 </div>
                 <div className='flex flex-col gap-4'>
-                    <Input errors={infoErrors} id='invoice_date' label='Invoice Date' type='date' defaultValue={editData?.createdAt} action={action} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='invoice_date' label='Invoice Date' type='date' defaultValue={editData?.createdAt} action={action} />
                     <SelectContainer id='payment_terms' label='Payment Terms' defaultValue={editData?.paymentTerms} />
-                    <Input errors={infoErrors} id='project_description' label='Project Description' type='text' defaultValue={editData?.description} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='project_description' label='Project Description' type='text' defaultValue={editData?.description} />
                 </div>
-                <ItemListContainer items={editData?.items} />
-                <CallToAction buttons={buttons} />
+                <ItemListContainer items={editData?.items} discard={isDiscard} />
+                <CallToAction buttons={buttons} onDiscard={discardHandler} />
             </FormRouter>
         </>
     )
@@ -120,10 +131,10 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 
     if (formDataErrors.length || checkErrors.length) {
-        return { formData: formDataErrors, itemsList: itemsError }
+        return { formData: formDataErrors, itemsList: itemsError, isError: true }
     }
 
-    // return null
+    return null
     if (request.method === 'PATCH') {
         const invoices: invoiceDetail[] = JSON.parse(localStorage.invoices);
         const invoiceId = params.invoiceDetailId!

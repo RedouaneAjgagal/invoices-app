@@ -6,7 +6,7 @@ import FilterProvider from './store/FilterProvider'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <FilterProvider>
-      <App />
+        <App />
     </FilterProvider>
   </React.StrictMode>,
 )
