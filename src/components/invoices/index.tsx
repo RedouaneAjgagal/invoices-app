@@ -9,7 +9,7 @@ const InvoicesContainer = () => {
     const activeFilters = [isPaid ? 'paid' : null, isPending ? 'pending' : null, isDraft ? 'draft' : null].filter(Boolean)
     const invoicesData: invoiceDetail[] = JSON.parse(localStorage.invoices);
     
-    const invoices = invoicesData.map(invoice => {
+    const allInvoices = invoicesData.map(invoice => {
         return {
             id: invoice.id,
             clientName: invoice.clientName,
@@ -17,7 +17,8 @@ const InvoicesContainer = () => {
             amount: invoice.total,
             status: invoice.status as 'paid' | 'pending' | 'draft'
         }
-    }).filter(invoice => {
+    })
+    const invoices = allInvoices.filter(invoice => {
         if (activeFilters.length) {
             let result = false
             activeFilters.filter(item => {
@@ -33,7 +34,7 @@ const InvoicesContainer = () => {
 
     return (
         <div className='flex flex-col gap-8'>
-            <InvoicesBar />
+            <InvoicesBar invoiceLength={allInvoices.length} />
             <InvoicesList list={invoices} />
         </div>
     )

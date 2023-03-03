@@ -4,8 +4,11 @@ import { FiPlus } from 'react-icons/fi'
 import InvoicesFilter from './InvoicesFilter'
 import { useNavigate } from 'react-router-dom'
 
+interface Props {
+    invoiceLength: number
+}
 
-const InvoicesBar = () => {
+const InvoicesBar: React.FC<Props> = (props) => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const navigate = useNavigate();
     const openFilterHandler = () => {
@@ -14,11 +17,12 @@ const InvoicesBar = () => {
     const addNewHandler = () => {
         navigate('new');
     }
+    const invoicesLength = props.invoiceLength > 1 ? `${props.invoiceLength} invoices` : `${props.invoiceLength} invoice`
     return (
         <nav className='flex justify-between items-center'>
             <div>
                 <h1 className='font-bold text-2xl'>Invoices</h1>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.95rem]'>7 invoices</p>
+                <p className='dark:text-darkTextGray text-lightTextGray text-[.95rem]'>{invoicesLength}</p>
             </div>
             <div className='flex gap-4 items-center'>
                 <div className='relative'>
