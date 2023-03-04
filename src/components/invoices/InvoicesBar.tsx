@@ -32,7 +32,7 @@ const InvoicesBar: React.FC<Props> = (props) => {
                     {isFilterOpen ? <InvoicesFilter /> : null}
                 </div>
                 <div>
-                    <button onClick={addNewHandler} className='flex items-center gap-2 bg-primaryPurple p-2 rounded-full font-medium text-white hover:bg-primaryPurples-Ligher ease-in-out duration-300'><span className='rounded-full bg-white p-1'><FiPlus className='text-primaryPurple text-lg' /></span><span className='sm:hidden'>New</span><span className='hidden sm:flex'>New Invoice</span></button>
+                    <button onClick={addNewHandler} className='flex items-center gap-2 bg-primaryPurple p-2 rounded-full font-medium text-white hover:bg-primaryPurples-Ligher ease-in-out duration-300 md:py-3 md:px-4'><span className='rounded-full bg-white p-1'><FiPlus className='text-primaryPurple text-lg' /></span><span className='sm:hidden'>New</span><span className='hidden sm:flex'>New Invoice</span></button>
                 </div>
             </div>
         </nav>

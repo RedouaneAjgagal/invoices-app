@@ -33,7 +33,7 @@ const InvoicesContainer = () => {
     })
 
     return (
-        <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-8 md:gap-12'>
             <InvoicesBar invoiceLength={allInvoices.length} />
             <InvoicesList list={invoices} />
         </div>
