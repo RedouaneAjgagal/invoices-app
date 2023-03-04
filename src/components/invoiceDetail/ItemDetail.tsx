@@ -39,15 +39,17 @@ const ItemDetail: React.FC<Props> = ({ details }) => {
     return (
 
         <section className='flex flex-col gap-4 pb-20'>
-            <div className='p-4 dark:bg-darkBlue bg-white rounded shadow-lg dark:shadow-black/20 shadow-slate-200/50'>
-                <div className='flex justify-between items-center'>
+            <div className='p-4 dark:bg-darkBlue bg-white rounded shadow-lg dark:shadow-black/20 shadow-slate-200/50 sm:flex sm:justify-between sm:py-2 sm:px-8'>
+                <div className='flex justify-between items-center sm:justify-start sm:gap-4'>
                     <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>Status</p>
-                    <Status status={status} />
+                    <div className='w-28'>
+                        <Status status={status} />
+                    </div>
                 </div>
                 <CallToAction buttons={['edit', 'delete']} status={details.status as 'paid' | 'pending' | 'draft'} />
 
             </div>
-            <article className='p-4 dark:bg-darkBlue bg-white rounded flex flex-col gap-8 shadow-lg dark:shadow-black/20 shadow-slate-200/50'>
+            <article className='p-4 dark:bg-darkBlue bg-white rounded flex flex-col gap-8 shadow-lg dark:shadow-black/20 shadow-slate-200/50 sm:p-8'>
                 <Info invoiceInfo={invoiceInfo} />
                 {itemsList.length ?
                     <Amount itemsList={itemsList} total={details.total} />

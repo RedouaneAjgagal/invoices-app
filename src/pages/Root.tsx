@@ -12,7 +12,7 @@ const Root = () => {
   return (
     <>
       <Navbar />
-      <main className='py-8 px-4 w-full max-w-4xl mx-auto lg:pt-16'>
+      <main className='py-8 px-4 w-full max-w-3xl mx-auto lg:pt-16'>
         <Outlet />
       </main>
     </>

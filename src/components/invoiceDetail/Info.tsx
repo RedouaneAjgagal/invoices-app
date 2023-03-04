@@ -29,21 +29,23 @@ const Info: React.FC<Props> = ({ invoiceInfo }) => {
 
     const formatedPaymentDue = new Date(invoiceInfo.paymentDue)
     const paymentDue = formatedPaymentDue.toLocaleDateString('en-us', { day: 'numeric', month: 'long', year: 'numeric' });
-    
+
     return (
         <div className='flex flex-col gap-6'>
-            <div>
-                <span className='font-medium text-primaryPurple'>#<span className='dark:text-white text-black'>{invoiceInfo.id}</span></span>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.description}</p>
+            <div className='flex flex-col gap-6 sm:flex-row sm:justify-between'>
+                <div>
+                    <span className='font-medium text-primaryPurple'>#<span className='dark:text-white text-black'>{invoiceInfo.id}</span></span>
+                    <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.description}</p>
+                </div>
+                <div className='sm:text-right'>
+                    <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.street}</p>
+                    <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.city}</p>
+                    <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.postCode}</p>
+                    <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.country}</p>
+                </div>
             </div>
-            <div>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.street}</p>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.city}</p>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.postCode}</p>
-                <p className='dark:text-darkTextGray text-lightTextGray text-[.9rem]'>{invoiceInfo.senderAddress.country}</p>
-            </div>
-            <div className='flex flex-col gap-6'>
-                <div className='flex justify-between'>
+            <div className='flex flex-col gap-6 sm:flex-row sm:justify-between'>
+                <div className='flex justify-between sm:gap-14 md:gap-28'>
                     <div className='flex flex-col justify-between'>
                         <div>
                             <p className='dark:text-darkTextGray text-lightTextGray'>Invoice Date</p>
