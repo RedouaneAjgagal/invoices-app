@@ -15,7 +15,7 @@ const FilterInput: React.FC<Props> = ({ name }) => {
         isChecked = true
     }
     return (
-        <label htmlFor={name} className='flex gap-2 cursor-pointer font-medium'>
+        <label htmlFor={name} className='flex gap-2 cursor-pointer font-medium sm:py-[.05rem]'>
             <input onChange={filterStatusHanlder} type="checkbox" name={name} id={name} checked={isChecked} className='cursor-pointer accent-primaryPurple w-full max-w-[.9rem]' />
             {name}
         </label>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { GoPrimitiveDot } from 'react-icons/go'
+import { RiArrowRightSLine } from 'react-icons/ri'
 
 interface Props {
     status: 'paid' | 'pending' | 'draft'
@@ -21,8 +22,11 @@ const Status: React.FC<Props> = (props) => {
     const slicedStatus = props.status.slice(1);
     const status = `${props.status.slice(0, 1).toUpperCase()}${slicedStatus}`
     return (
-        <div className={`flex justify-center h-10 w-full max-w-[7rem] rounded ${bgColor}`}>
-            <span className={`font-medium tracking-wide flex items-center gap-1 ${statusColor}`}><GoPrimitiveDot className='-mb-[.1rem]' />{status}</span>
+        <div className='flex items-center w-full justify-end gap-4'>
+            <div className={`flex justify-center max-w-[7rem] h-10 w-full rounded ${bgColor}`}>
+                <span className={`font-medium tracking-wide flex items-center gap-1 ${statusColor}`}><GoPrimitiveDot className='-mb-[.1rem]' />{status}</span>
+            </div>
+            <span className='w-6 h-6 items-center justify-center hidden md:flex'><RiArrowRightSLine className='text-primaryPurple -mb-[.15rem] w-5 h-5' /></span>
         </div>
     )
 }
