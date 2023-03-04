@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ActionFunction, Form as FormRouter, redirect, useActionData } from 'react-router-dom'
+import { ActionFunction, useFetcher, redirect, useActionData } from 'react-router-dom'
 import Input, { inputErrors } from './Input'
 import ItemListContainer from './ItemListContainer'
 import CallToAction from '../../Helpers/CallToAction'
@@ -15,8 +15,9 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ buttons, editData, action }) => {
-    const responseData = useActionData() as { formData: inputErrors }
-    const infoErrors = responseData?.formData
+    const fetcher = useFetcher()
+    const itemsListError = fetcher.data?.itemsList
+    const infoErrors = fetcher.data?.formData
     const [isDiscard, setIsDiscard] = useState<boolean>(false)
     useEffect(() => {
         setIsDiscard(false)
@@ -36,7 +37,7 @@ const Form: React.FC<Props> = ({ buttons, editData, action }) => {
                 :
                 <h1 className='font-medium text-3xl'>New Invoice</h1>
             }
-            <FormRouter method={action} className='flex flex-col gap-8 pb-20' noValidate>
+            <fetcher.Form method={action} action={'/invoices/new'} className='flex flex-col gap-8 pb-20 sm:pb-0' noValidate>
                 <div className='flex flex-col gap-4'>
                     <h3 className='dark:text-purple-500 text-purple-600 font-medium tracking-wide'>Bill From</h3>
                     <Input errors={isDiscard ? [] : infoErrors} id='from_street_address' label='Steet Address' type='text' defaultValue={editData?.senderAddress.street} />
@@ -64,7 +65,7 @@ const Form: React.FC<Props> = ({ buttons, editData, action }) => {
                 </div>
                 <ItemListContainer items={editData?.items} discard={isDiscard} />
                 <CallToAction buttons={buttons} onDiscard={discardHandler} />
-            </FormRouter>
+            </fetcher.Form>
         </>
     )
 }
@@ -73,7 +74,7 @@ export default Form
 
 
 export const action: ActionFunction = async ({ request, params }) => {
-    // const whichOne = request.
+    
     const getData = await request.formData();
     
     
@@ -92,7 +93,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         payment_terms: getData.get('payment_terms') as string,
         project_description: getData.get('project_description') as string,
     }
-
+    
     const formDataErrors = Object.entries(data).map((obj) => {
         const property = obj[0]
         const value = obj[1]

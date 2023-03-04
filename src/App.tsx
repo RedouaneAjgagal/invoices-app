@@ -23,12 +23,12 @@ function App() {
         },
         {
           path: 'invoices',
-          // action: deleteInvoice,
           children: [
             {
               index: true,
               element: <Invoices />,
               loader: loadInvoices
+              // action: submitFormAction
             },
             {
               path: ':invoiceDetailId',

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Input from './Input'
 import { FaTrash } from 'react-icons/fa'
 import { formatPriceHanlder } from '../../utils/formatPrices'
-import { useActionData } from 'react-router-dom'
+import { useActionData, useFetchers } from 'react-router-dom'
 
 interface Props {
     id: string,
@@ -18,7 +18,9 @@ interface Props {
 }
 
 const ItemListInput: React.FC<Props> = (props) => {
-    const actionData = useActionData() as {
+    const [useFeatchers] = useFetchers()
+    
+    const actionData = useFeatchers?.data as {
         itemsList: {
             emptyInputs: string[];
             index: number;
