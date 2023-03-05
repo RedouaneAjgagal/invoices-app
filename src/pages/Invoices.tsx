@@ -14,6 +14,12 @@ const Invoices = () => {
     useEffect(() => {
         filterInvoice('reset');
     }, [])
+
+    if (isOpen.newInvoice) {
+        document.body.style.overflow = 'hidden'
+    } else {
+        document.body.style.overflow = 'auto'
+    }
     return (
         <div>
             <InvoicesContainer />

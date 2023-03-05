@@ -75,14 +75,14 @@ const CallToAction: React.FC<Props> = (props) => {
             {/* Secondary btn for desktop */}
             <button type='button' onClick={secondaryBtnAction} className={`w-full h-[60%] mx-1 dark:bg-slate-600/10 bg-slate-200 hover:bg-slate-300 rounded-full hover:dark:bg-white hover:dark:text-primaryPurple duration-300 ease-in-out text-[.95rem] lg:w-28 hidden lg:flex lg:justify-center lg:items-center`} value={'secondaryBtn-desktop'} >{secondaryBtn}</button>
             {/* end Secondary btn for desktop */}
-            {props.buttons.length === 3 && <button name='middleBtn' value={'Save as Draft'} className={`w-full m-1 h-[60%] bg-gray-700 text-white rounded-full hover:bg-gray-600 duration-300 ease-in-out text-[.95rem] sm:w-28`}>Save as Draft</button>}
             {getSubmitBtn === 'delete' ?
-                <button onClick={deleteHandler} type="submit" className='w-full mx-1 dark:bg-red-500 bg-red-500/90 dark:hover:bg-red-700 hover:bg-red-400 h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-28'>{submitBtn}</button>
+                <button onClick={deleteHandler} type="submit" className='w-full mx-1 dark:bg-red-500 bg-red-500/90 dark:hover:bg-red-700 hover:bg-red-400 h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-28 order-3'>{submitBtn}</button>
                 :
-                <button type="submit" className='w-full mx-1 bg-primaryPurple hover:bg-primaryPurples-Ligher  h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-28' >{submitBtn}</button>
+                <button type="submit" className='w-full mx-1 bg-primaryPurple hover:bg-primaryPurples-Ligher  h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-28 order-3' >{submitBtn}</button>
             }
+            {props.buttons.length === 3 && <button name='middleBtn' value={'Save as Draft'} className={`w-full m-1 h-[60%] bg-gray-700 text-white rounded-full hover:bg-gray-600 duration-300 ease-in-out text-[.95rem] sm:w-28 order-2`}>Save as Draft</button>}
             {props.status === 'pending' &&
-                <button onClick={markPaidHandler} type="submit" className={`w-full mx-1 dark:bg-primaryPurple bg-indigo-600 dark:hover:bg-indigo-600 hover:bg-primaryPurple h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-28`}>Mark as paid</button>
+                <button onClick={markPaidHandler} className={`w-full mx-1 dark:bg-primaryPurple bg-indigo-600 dark:hover:bg-indigo-600 hover:bg-primaryPurple h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-28`}>Mark as paid</button>
             }
         </div>
     )

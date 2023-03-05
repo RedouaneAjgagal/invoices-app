@@ -44,7 +44,7 @@ const Form: React.FC<Props> = ({ buttons, editData, action, method }) => {
             formRef.current!.reset()
             setIsDiscard(true)
         }
-    }, [fetcher.data?.closeForm])
+    }, [fetcher.data])
     return (
         <>
             {editData?.id ?

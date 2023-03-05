@@ -1,14 +1,20 @@
 import { useContext } from 'react'
-import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'react-router-dom'
+import { ActionFunction, json, LoaderFunction, redirect, useLoaderData } from 'react-router-dom'
 import InvoiceInfo from '../components/invoiceDetail'
 import { invoiceDetail } from '../components/invoiceDetail/ItemDetail'
 import Form from '../components/invoiceForm/Form'
 import OpenForm from '../store/OpenFormDesktop'
+import data from '../data/data.json'
 const InvoiceDetail = () => {
   const { isOpen, closeForm } = useContext(OpenForm)
   const invoiceData = useLoaderData() as invoiceDetail;
   const closeFormHandler = () => {
     closeForm()
+  }
+  if (isOpen.editInvoice) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'auto'
   }
   return (
     <div>
@@ -28,10 +34,12 @@ export const loader: LoaderFunction = ({ params }) => {
   const targetInvoice = params.invoiceDetailId;
   const invoicesData: invoiceDetail[] = JSON.parse(localStorage.invoices)
   const getInvoice = invoicesData.filter(invoice => invoice.id === targetInvoice);
+  if (getInvoice.length === 0) {
+    throw json({ errorMsg: 'Could not load the targeted invoice!' }, { status: 500 })
+  }
   const [invoice] = getInvoice;
   return invoice
 }
-
 
 export const action: ActionFunction = async ({ params, request }) => {
   const targetedId = params.invoiceDetailId
