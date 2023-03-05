@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useNavigate, useParams, useSubmit } from 'react-router-dom'
 import { invoiceDetail } from '../components/invoiceDetail/ItemDetail';
 import OpenForm from '../store/OpenFormDesktop';
+import DeleteInoive from '../store/DeleteInvoice';
 
 interface Props {
     buttons: ['edit' | 'cancel' | 'discard', 'delete' | 'send', 'draft'?];
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const CallToAction: React.FC<Props> = (props) => {
+    const { openDeleteContainer } = useContext(DeleteInoive)
     const { closeForm, openEditInvoiceForm } = useContext(OpenForm)
     const getSecondaryBtn = props.buttons[0];
     const secondaryBtn = `${getSecondaryBtn.slice(0, 1).toUpperCase()}${getSecondaryBtn.slice(1)}`;
@@ -21,7 +23,7 @@ const CallToAction: React.FC<Props> = (props) => {
     const params = useParams()
     const invoiceId = params.invoiceDetailId
     const invoicesData: invoiceDetail[] = JSON.parse(localStorage.invoices)
-    const [targetedInvoice] = invoicesData.filter(invoice => invoice.id === invoiceId)
+    // const [targetedInvoice] = invoicesData.filter(invoice => invoice.id === invoiceId)
 
     const editNavigate = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (e.currentTarget.value === 'secondaryBtn-mobile') {
@@ -56,8 +58,7 @@ const CallToAction: React.FC<Props> = (props) => {
         navigate('')
     }
     const deleteHandler = () => {
-        const confirm = window.confirm(`Are you sure you want to delete invoice #${targetedInvoice.id}`)
-        if (confirm) submit(null, { method: 'delete' })
+        openDeleteContainer()
     }
 
     let secondaryBtnAction

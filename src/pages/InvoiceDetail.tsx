@@ -4,14 +4,16 @@ import InvoiceInfo from '../components/invoiceDetail'
 import { invoiceDetail } from '../components/invoiceDetail/ItemDetail'
 import Form from '../components/invoiceForm/Form'
 import OpenForm from '../store/OpenFormDesktop'
-import data from '../data/data.json'
+import Overlay from '../UI/Overlay'
+import DeleteInoive from '../store/DeleteInvoice'
 const InvoiceDetail = () => {
   const { isOpen, closeForm } = useContext(OpenForm)
+  const { isOpen: isDeleteOpen} = useContext(DeleteInoive)
   const invoiceData = useLoaderData() as invoiceDetail;
   const closeFormHandler = () => {
     closeForm()
   }
-  if (isOpen.editInvoice) {
+  if (isOpen.editInvoice || isDeleteOpen) {
     document.body.style.overflow = 'hidden'
   } else {
     document.body.style.overflow = 'auto'
@@ -22,7 +24,7 @@ const InvoiceDetail = () => {
       <div className={`hidden lg:grid fixed top-0 left-[5.5rem] dark:bg-darkerBlue bg-white z-40 w-full max-w-2xl p-12 drop-shadow shadow-2xl overflow-auto bottom-0 duration-300 ease-in-out ${isOpen.editInvoice ? 'translate-x-0' : '-translate-x-[120%]'}`}>
         <Form buttons={['cancel', 'send']} editData={invoiceData} method={"patch"} action={"edit"} />
       </div>
-      <div className={`fixed bottom-0 left-[5.5rem] w-full h-full z-30 bg-black/80 ${isOpen.editInvoice ? 'fixed' : 'hidden'}`} onClick={closeFormHandler}></div>
+      <Overlay onClick={closeFormHandler} isOpen={isOpen.editInvoice} />
     </div>
   )
 }

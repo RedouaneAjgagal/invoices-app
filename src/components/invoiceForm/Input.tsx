@@ -31,13 +31,16 @@ const Input: React.FC<Props> = (props) => {
         const currentDay = date.toISOString().split('T')[0]
         value = currentDay
     }
-    const error = props.errors?.filter(error => error === props.id)[0]
-    
+    const error = props.errors?.filter(error => error === props.id)
+
     return (
         <div className='flex flex-col gap-2'>
             <label className='dark:text-darkTextGray text-lightTextGray' htmlFor={props.id}>{props.label}</label>
-            <input type={props.type} id={props.id} name={props.name ? props.name : props.id}  className={`outline-none dark:bg-darkBlue border dark:border-slate-800 hover:dark:border-primaryPurple hover:border-primaryPurple duration-300 ease-linear bg-white p-3 rounded font-medium ${error && 'dark:border-red-600/90 border-red-600'}`} defaultValue={value} />
-            {error && <span className='dark:text-red-500 text-red-600 text-sm'><i>{error === 'to_client_email' ? 'Invalid email' : 'Required field'}</i></span>}
+            <input type={props.type} id={props.id} name={props.name ? props.name : props.id} className={`outline-none dark:bg-darkBlue border hover:dark:border-primaryPurple hover:border-primaryPurple duration-300 ease-linear bg-white p-3 rounded font-medium ${error?.length ? 'dark:border-red-600 border-red-600' : 'dark:border-slate-800 border-slate-300'}`} defaultValue={value} />
+            {error?.length ? <span className='dark:text-red-500 text-red-600 text-sm'><i>{error[0] === 'to_client_email' ? 'Invalid email' : 'Required field'}</i></span>
+                :
+                null
+            }
         </div>
     )
 }
