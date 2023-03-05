@@ -50,7 +50,7 @@ Users should be able to:
 ### Links
 
 - Source: [GitHub Repository](https://github.com/RedouaneAjgagal/invoices-app)
-- Live: [Live Site](https://manage-invoices.netlify.app/invoices)
+- Live: [Live Site](https://manage-invoices.netlify.app)
 
 ## My process
 
