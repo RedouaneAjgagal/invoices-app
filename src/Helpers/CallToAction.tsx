@@ -83,7 +83,7 @@ const CallToAction: React.FC<Props> = (props) => {
             }
             {props.buttons.length === 3 && <button name='middleBtn' value={'Save as Draft'} className={`w-full m-1 h-[60%] bg-gray-700 text-white rounded-full hover:bg-gray-600 duration-300 ease-in-out text-[.95rem] sm:w-28 order-2`}>Save as Draft</button>}
             {props.status === 'pending' &&
-                <button onClick={markPaidHandler} className={`w-full mx-1 dark:bg-primaryPurple bg-indigo-600 dark:hover:bg-indigo-600 hover:bg-primaryPurple h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-28`}>Mark as paid</button>
+                <button onClick={markPaidHandler} className={`w-full mx-1 dark:bg-primaryPurple bg-indigo-600 dark:hover:bg-indigo-600 hover:bg-primaryPurple h-[60%] rounded-full duration-300 ease-in-out text-[.95rem] text-white sm:w-36 order-4`}>Mark as paid</button>
             }
         </div>
     )

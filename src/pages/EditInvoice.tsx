@@ -1,5 +1,5 @@
 import React from 'react'
-import { json, LoaderFunction } from 'react-router-dom'
+import { json, LoaderFunction, redirect } from 'react-router-dom'
 import EditContainer from '../components/editInvoice'
 import { invoiceDetail } from '../components/invoiceDetail/ItemDetail'
 
@@ -13,6 +13,9 @@ const EditInvoice = () => {
 export default EditInvoice
 
 export const loader: LoaderFunction = ({ params }) => {
+  if (window.innerWidth > 1024) {
+    return redirect('..')
+  }
   const id = params.invoiceDetailId
   const invoicesData: invoiceDetail[] = JSON.parse(localStorage.invoices);
   const getInvoice = invoicesData.filter(invoice => {

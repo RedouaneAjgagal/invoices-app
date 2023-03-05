@@ -3,7 +3,7 @@ import FilterInput from './FilterInput';
 const InvoicesFilter = () => {
     
     return (
-        <div className='absolute left-[-50%] top-10 dark:bg-slate-800 bg-white p-4 w-44 z-30 rounded-lg shadow-lg drop-shadow-2xl flex-col gap-1 select-none sm:left-[-25%] sm:w-48'>
+        <div className='absolute left-[-50%] top-10 dark:bg-slate-800 bg-white p-4 w-44 z-20 rounded-lg shadow-lg drop-shadow-2xl flex-col gap-1 select-none sm:left-[-25%] sm:w-48'>
             <FilterInput name='paid' />
             <FilterInput name='pending' />
             <FilterInput name='draft' />

@@ -1,10 +1,9 @@
 import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 import Root from './pages/Root';
-import Home, { loader as initialLoad} from './pages/Home';
-import Invoices, {loader as loadInvoices} from './pages/Invoices';
-import InvoiceDetail, {action as deleteInoive, loader as targetInvoice} from './pages/InvoiceDetail';
-// import  {action as deleteInvoice} from './Helpers/CallToAction';
-import NewInvoices from './pages/NewInvoices';
+import Home, { loader as initialLoad } from './pages/Home';
+import Invoices, { loader as loadInvoices } from './pages/Invoices';
+import InvoiceDetail, { action as deleteInoive, loader as targetInvoice } from './pages/InvoiceDetail';
+import NewInvoices, { loader as newInvoiceLoader } from './pages/NewInvoices';
 import EditInvoice, { loader as getInvoiceDetail } from './pages/EditInvoice';
 import Error from './pages/Error';
 import { action as submitFormAction } from './components/invoiceForm/Form';
@@ -49,7 +48,8 @@ function App() {
             {
               path: 'new',
               element: <NewInvoices />,
-              action: submitFormAction
+              action: submitFormAction,
+              loader: newInvoiceLoader
             },
           ]
         },
