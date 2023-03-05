@@ -71,7 +71,7 @@ const CallToAction: React.FC<Props> = (props) => {
     }
 
     return (
-        <div className='fixed bottom-0 left-0 z-30 dark:bg-darkBlue bg-white drop-shadow-[0_35px_35px_rgba(0,0,0,0.2)] w-full h-20 px-4 flex justify-between items-center font-medium sm:static sm:drop-shadow-none sm:px-0 sm:dark:bg-transparent sm:bg-transparent sm:justify-end'>
+        <div className='fixed bottom-0 left-0 z-20 dark:bg-darkBlue bg-white drop-shadow-[0_35px_35px_rgba(0,0,0,0.2)] w-full h-20 px-4 flex justify-between items-center font-medium sm:static sm:drop-shadow-none sm:px-0 sm:dark:bg-transparent sm:bg-transparent sm:justify-end'>
             <button type='button' onClick={secondaryBtnAction} className={`w-full h-[60%] mx-1 dark:bg-slate-600/10 bg-slate-200 hover:bg-slate-300 rounded-full hover:dark:bg-white hover:dark:text-primaryPurple duration-300 ease-in-out text-[.95rem] sm:w-28 lg:hidden`} value={'secondaryBtn-mobile'}>{secondaryBtn}</button>
             {/* Secondary btn for desktop */}
             <button type='button' onClick={secondaryBtnAction} className={`w-full h-[60%] mx-1 dark:bg-slate-600/10 bg-slate-200 hover:bg-slate-300 rounded-full hover:dark:bg-white hover:dark:text-primaryPurple duration-300 ease-in-out text-[.95rem] lg:w-28 hidden lg:flex lg:justify-center lg:items-center`} value={'secondaryBtn-desktop'} >{secondaryBtn}</button>

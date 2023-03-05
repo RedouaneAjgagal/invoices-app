@@ -6,9 +6,10 @@ import Form from '../components/invoiceForm/Form'
 import OpenForm from '../store/OpenFormDesktop'
 import Overlay from '../UI/Overlay'
 import DeleteInoive from '../store/DeleteInvoice'
+import { createPortal } from 'react-dom'
 const InvoiceDetail = () => {
   const { isOpen, closeForm } = useContext(OpenForm)
-  const { isOpen: isDeleteOpen} = useContext(DeleteInoive)
+  const { isOpen: isDeleteOpen } = useContext(DeleteInoive)
   const invoiceData = useLoaderData() as invoiceDetail;
   const closeFormHandler = () => {
     closeForm()
@@ -21,10 +22,15 @@ const InvoiceDetail = () => {
   return (
     <div>
       <InvoiceInfo invoiceData={invoiceData} />
-      <div className={`hidden lg:grid fixed top-0 left-[5.5rem] dark:bg-darkerBlue bg-white z-40 w-full max-w-2xl p-12 drop-shadow shadow-2xl overflow-auto bottom-0 duration-300 ease-in-out ${isOpen.editInvoice ? 'translate-x-0' : '-translate-x-[120%]'}`}>
-        <Form buttons={['cancel', 'send']} editData={invoiceData} method={"patch"} action={"edit"} />
-      </div>
-      <Overlay onClick={closeFormHandler} isOpen={isOpen.editInvoice} />
+      {createPortal(
+        <div>
+          <div className={`hidden lg:grid fixed top-0 left-[5.5rem] dark:text-darkTextGray dark:bg-darkerBlue bg-white z-40 w-full max-w-2xl p-12 drop-shadow shadow-2xl overflow-auto bottom-0 duration-300 ease-in-out ${isOpen.editInvoice ? 'translate-x-0' : '-translate-x-[120%]'}`}>
+            <Form buttons={['cancel', 'send']} editData={invoiceData} method={"patch"} action={"edit"} />
+          </div>
+          <Overlay onClick={closeFormHandler} isOpen={isOpen.editInvoice} />
+        </div>,
+        document.getElementById('overlay')!
+      )}
     </div>
   )
 }

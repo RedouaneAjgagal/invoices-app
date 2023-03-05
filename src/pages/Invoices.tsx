@@ -6,6 +6,7 @@ import { LoaderFunction } from 'react-router-dom'
 import OpenForm from '../store/OpenFormDesktop'
 import Form from '../components/invoiceForm/Form'
 import Overlay from '../UI/Overlay'
+import { createPortal } from 'react-dom'
 const Invoices = () => {
     const { filterInvoice } = useContext(FilterStatus)
     const { isOpen, closeForm } = useContext(OpenForm)
@@ -24,10 +25,15 @@ const Invoices = () => {
     return (
         <div>
             <InvoicesContainer />
-            <div className={`hidden lg:grid fixed top-0 left-[5.5rem] dark:bg-darkerBlue bg-white z-40 w-full max-w-2xl p-12 drop-shadow shadow-2xl overflow-auto bottom-0 duration-300 ease-in-out ${isOpen.newInvoice ? 'translate-x-0' : '-translate-x-[120%]'}`}>
-                <Form buttons={['discard', 'send', 'draft']} method={"post"} action={"new"} />
-            </div>
-            <Overlay onClick={closeFormHandler} isOpen={isOpen.newInvoice} />
+            {createPortal(
+                <div>
+                    <div className={`hidden lg:grid fixed top-0 left-[5.5rem] dark:text-darkTextGray dark:bg-darkerBlue bg-white z-40 w-full max-w-2xl p-12 drop-shadow shadow-2xl overflow-auto bottom-0 duration-300 ease-in-out ${isOpen.newInvoice ? 'translate-x-0' : '-translate-x-[120%]'}`}>
+                        <Form buttons={['discard', 'send', 'draft']} method={"post"} action={"new"} />
+                    </div>
+                    <Overlay onClick={closeFormHandler} isOpen={isOpen.newInvoice} />
+                </div>,
+                document.getElementById('overlay')!
+            )}
         </div>
     )
 }

@@ -11,7 +11,7 @@ const Overlay: React.FC<Props> = (props) => {
         props.onClick()
     }
     return (
-        <div className={`fixed left-0 bottom-0 w-full h-full z-30 bg-black/80 lg:left-[5.5rem] ${props.delete && 'lg:left-0'} ${props.isOpen ? 'fixed' : 'hidden'}`} onClick={clickHandler}></div>
+        <div className={`fixed left-0 bottom-0 w-full h-full bg-black/80 lg:left-[5.5rem] ${props.delete ? 'lg:left-0 z-40' : 'z-30'} ${props.isOpen ? 'fixed' : 'hidden'}`} onClick={clickHandler}></div>
     )
 }
 
