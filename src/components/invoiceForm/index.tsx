@@ -7,7 +7,7 @@ const InvoiceForm = () => {
       <nav>
         <BackButton />
       </nav>
-      <Form buttons={['discard', 'send', 'draft']} action={"post"} />
+      <Form buttons={['discard', 'send', 'draft']} method={"post"} action={""} />
     </div>
   )
 }

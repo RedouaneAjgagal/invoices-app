@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import Input from './Input'
 import { FaTrash } from 'react-icons/fa'
 import { formatPriceHanlder } from '../../utils/formatPrices'
-import { useActionData, useFetchers } from 'react-router-dom'
+import { useFetchers } from 'react-router-dom'
 
 interface Props {
     id: string,

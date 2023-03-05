@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { ActionFunction, useFetcher, redirect, useActionData } from 'react-router-dom'
-import Input, { inputErrors } from './Input'
+import React, { useState, useEffect, useContext, useRef } from 'react'
+import { ActionFunction, useFetcher, redirect } from 'react-router-dom'
+import Input from './Input'
 import ItemListContainer from './ItemListContainer'
 import CallToAction from '../../Helpers/CallToAction'
 import { invoiceDetail } from '../invoiceDetail/ItemDetail'
 import SelectContainer from './SelectContainer'
 import { generateId } from '../../utils/generateId'
 import { submitForm } from '../../utils/submitForm'
+import OpenForm from '../../store/OpenFormDesktop'
 
 interface Props {
     buttons: ['cancel' | 'discard', 'send', 'draft'?];
     editData?: invoiceDetail,
-    action: "get" | "post" | "put" | "delete" | "patch"
+    method: "get" | "post" | "put" | "delete" | "patch",
+    action: 'new' | 'edit' | ''
 }
 
-const Form: React.FC<Props> = ({ buttons, editData, action }) => {
+const Form: React.FC<Props> = ({ buttons, editData, action, method }) => {
     const fetcher = useFetcher()
-    const itemsListError = fetcher.data?.itemsList
+    const { closeForm } = useContext(OpenForm)
+    const formRef = useRef<HTMLFormElement>(null)
+
     const infoErrors = fetcher.data?.formData
+
     const [isDiscard, setIsDiscard] = useState<boolean>(false)
     useEffect(() => {
         setIsDiscard(false)
     }, [infoErrors])
+    
+    
 
     const discardHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         const form = e.currentTarget.form
@@ -30,6 +37,14 @@ const Form: React.FC<Props> = ({ buttons, editData, action }) => {
         }
         setIsDiscard(true)
     }
+    useEffect(() => {
+        if (fetcher.data?.closeForm) {
+            closeForm();
+            if (fetcher.data?.method === 'edit') return
+            formRef.current!.reset()
+            setIsDiscard(true)
+        }
+    }, [fetcher.data?.closeForm])
     return (
         <>
             {editData?.id ?
@@ -37,7 +52,7 @@ const Form: React.FC<Props> = ({ buttons, editData, action }) => {
                 :
                 <h1 className='font-medium text-3xl'>New Invoice</h1>
             }
-            <fetcher.Form method={action} action={'/invoices/new'} className='flex flex-col gap-8 pb-20 sm:pb-0' noValidate>
+            <fetcher.Form method={method} action={action} className='flex flex-col gap-8 pb-20 sm:pb-0' noValidate id='form' ref={formRef}>
                 <div className='flex flex-col gap-4'>
                     <h3 className='dark:text-purple-500 text-purple-600 font-medium tracking-wide'>Bill From</h3>
                     <Input errors={isDiscard ? [] : infoErrors} id='from_street_address' label='Steet Address' type='text' defaultValue={editData?.senderAddress.street} />
@@ -59,7 +74,7 @@ const Form: React.FC<Props> = ({ buttons, editData, action }) => {
                     <Input errors={isDiscard ? [] : infoErrors} id='to_country' label='Country' type='text' defaultValue={editData?.clientAddress.country} />
                 </div>
                 <div className='flex flex-col gap-4'>
-                    <Input errors={isDiscard ? [] : infoErrors} id='invoice_date' label='Invoice Date' type='date' defaultValue={editData?.createdAt} action={action} />
+                    <Input errors={isDiscard ? [] : infoErrors} id='invoice_date' label='Invoice Date' type='date' defaultValue={editData?.createdAt} action={method} />
                     <SelectContainer id='payment_terms' label='Payment Terms' defaultValue={editData?.paymentTerms} />
                     <Input errors={isDiscard ? [] : infoErrors} id='project_description' label='Project Description' type='text' defaultValue={editData?.description} />
                 </div>
@@ -74,9 +89,8 @@ export default Form
 
 
 export const action: ActionFunction = async ({ request, params }) => {
-    
+
     const getData = await request.formData();
-    
     
     const data = {
         from_street_address: getData.get('from_street_address') as string,
@@ -93,7 +107,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         payment_terms: getData.get('payment_terms') as string,
         project_description: getData.get('project_description') as string,
     }
-    
+
     const formDataErrors = Object.entries(data).map((obj) => {
         const property = obj[0]
         const value = obj[1]
@@ -122,7 +136,11 @@ export const action: ActionFunction = async ({ request, params }) => {
         const newInvoice = submitForm(data, invoiceId, itemsList, 'draft')
         const updatInvoices = JSON.parse(localStorage.invoices).concat(newInvoice)
         localStorage.invoices = JSON.stringify(updatInvoices)
-        return redirect(`/invoices/${invoiceId}`)
+        if (window.innerWidth < 1024) {
+            return redirect('/invoices')
+        } else {
+            return { closeForm: true }
+        }
     }
 
     const itemsError = itemsList.itemNames.map((item, index) => {
@@ -155,7 +173,11 @@ export const action: ActionFunction = async ({ request, params }) => {
         const updatedInvoice = submitForm(data, invoiceId, itemsList);
         invoices[targetIndex] = updatedInvoice
         localStorage.invoices = JSON.stringify(invoices);
-        return redirect('..')
+        if (window.innerWidth < 1024) {
+            return redirect('..')
+        } else {
+            return { closeForm: true, method: 'edit' }
+        }
     }
     // add a new invoice
     if (request.method === 'POST') {
@@ -163,7 +185,11 @@ export const action: ActionFunction = async ({ request, params }) => {
         const newInvoice = submitForm(data, invoiceId, itemsList)
         const updatInvoices = JSON.parse(localStorage.invoices).concat(newInvoice)
         localStorage.invoices = JSON.stringify(updatInvoices)
-        return redirect(`/invoices/${invoiceId}`)
+        if (window.innerWidth < 1024) {
+            return redirect('/invoices')
+        } else {
+            return { closeForm: true }
+        }
     }
     return null
 } 

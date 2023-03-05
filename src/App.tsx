@@ -28,7 +28,6 @@ function App() {
               index: true,
               element: <Invoices />,
               loader: loadInvoices
-              // action: submitFormAction
             },
             {
               path: ':invoiceDetailId',
